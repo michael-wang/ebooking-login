@@ -2,26 +2,31 @@ package main
 
 import (
 	"encoding/base64"
-	"flag"
+	//"flag"
 	"fmt"
 	"html/template"
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
 )
 
 const lineLoginURL string = "https://access.line.me/oauth2/v2.1/authorize"
+const ENV_CHANNEL_ID string = "LINE_CHANNEL_ID"
+const ENV_AUTH_CALLBACK string = "LINE_CALLBACK_URL"
 
 var lineChannelID string
 var lineAuthCallback string
 
 func init() {
-	flag.StringVar(&lineChannelID, "channelID", "", "LINE channel ID.")
-	flag.StringVar(&lineAuthCallback, "authCallback", "", "LINE OAuth Callback URL.")
+	//flag.StringVar(&lineChannelID, "channelID", "", "LINE channel ID.")
+	//flag.StringVar(&lineAuthCallback, "authCallback", "", "LINE OAuth Callback URL.")
+	lineChannelID = os.Getenv(ENV_CHANNEL_ID)
+	lineAuthCallback = os.Getenv(ENV_AUTH_CALLBACK)
 }
 
 func main() {
-	flag.Parse()
+	//flag.Parse()
 	if len(lineChannelID) == 0 || len(lineAuthCallback) == 0 {
 		log.Fatal("missing argument: channelID or authCallback")
 	}
