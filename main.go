@@ -37,9 +37,7 @@ func main() {
 	http.HandleFunc("/", loginPage)
 	http.HandleFunc("/login/line", requestLineLogin)
 	http.HandleFunc("/auth/line", showRequestHandler)
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
-
-	http.ListenAndServe(":8000", nil)
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 }
 
 func showRequestHandler(w http.ResponseWriter, r *http.Request) {
